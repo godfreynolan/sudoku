@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3x3 Sudoku</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">3x3 Sudoku</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div>
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form method="post">
+            <table class="table table-bordered text-center" style="width: 200px; margin: 0 auto;">
+                {% for i in range(grid|length) %}
+                <tr>
+                    {% for j in range(grid[i]|length) %}
+                        <td>
+                            <input type="text" 
+                                   name="cell-{{ i }}-{{ j }}" 
+                                   value="{{ grid[i][j] if grid[i][j] != 0 else '' }}" 
+                                   maxlength="1"
+                                   class="form-control text-center" 
+                                   style="width: 50px;">
+                        </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">Validate</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
